@@ -8,7 +8,9 @@ public class Detection : MonoBehaviour
     public GameObject player;
 
     [Header("DetectionObject")]
-    public SphereCollider detectionCollider;
+    public GameObject detectionObj;
+    public float detectionRange;
+    public float detectionGrowth;
 
     [Header("Scripts")]
     public StateMachine stateMachine;
@@ -16,7 +18,7 @@ public class Detection : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        detectionCollider = GetComponent<SphereCollider>();
+        detectionObj.transform.localScale = new Vector3(detectionRange, detectionRange, detectionRange);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,7 +26,7 @@ public class Detection : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             stateMachine.enemyState = StateMachine.EnemyState.chaseing;
-            detectionCollider.radius += 5f;
+            detectionObj.transform.localScale = new Vector3(detectionRange + detectionGrowth, detectionRange + detectionGrowth, detectionRange + detectionGrowth);
         }
     }
 
@@ -32,8 +34,8 @@ public class Detection : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            stateMachine.enemyState = StateMachine.EnemyState.retreating;
-            detectionCollider.radius -= 5f;
+            stateMachine.enemyState = StateMachine.EnemyState.searching;
+            detectionObj.transform.localScale = new Vector3(detectionRange, detectionRange, detectionRange);
         }
     }
 }
