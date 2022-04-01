@@ -1762,6 +1762,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1694952364}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!135 &1736579917 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 3465305035130335838, guid: 2b2171492ab56474386f21e681c66ae9, type: 3}
+  m_PrefabInstance: {fileID: 8150884333177136068}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1740070064 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8150884333706985332, guid: 2b2171492ab56474386f21e681c66ae9, type: 3}
@@ -2285,6 +2290,30 @@ PrefabInstance:
       propertyPath: stateMachine
       value: 
       objectReference: {fileID: 396913328}
+    - target: {fileID: 6524313202727747518, guid: 2b2171492ab56474386f21e681c66ae9, type: 3}
+      propertyPath: searchWaitTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524313202727747518, guid: 2b2171492ab56474386f21e681c66ae9, type: 3}
+      propertyPath: retreatWaitTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6576505730295565607, guid: 2b2171492ab56474386f21e681c66ae9, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1574777556}
+    - target: {fileID: 6576505730295565607, guid: 2b2171492ab56474386f21e681c66ae9, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1574777556}
+    - target: {fileID: 6576505730295565607, guid: 2b2171492ab56474386f21e681c66ae9, type: 3}
+      propertyPath: stateMachine
+      value: 
+      objectReference: {fileID: 396913328}
+    - target: {fileID: 6576505730295565607, guid: 2b2171492ab56474386f21e681c66ae9, type: 3}
+      propertyPath: detectionCollider
+      value: 
+      objectReference: {fileID: 1736579917}
     - target: {fileID: 8150884333573853341, guid: 2b2171492ab56474386f21e681c66ae9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24.85

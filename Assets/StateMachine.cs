@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-    enum EnemyState
+    public enum EnemyState
     {
         patroling,
         chaseing,
@@ -13,20 +13,20 @@ public class StateMachine : MonoBehaviour
         retreating
     }
 
+    public EnemyState enemyState;
+
     [HideInInspector]
     public int currentState;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        enemyState = EnemyState.patroling;
     }
 
     // Update is called once per frame
     void Update()
     {
-        EnemyState enemyState = EnemyState.patroling;
-
         switch (enemyState)
         {
             case EnemyState.patroling:
@@ -50,25 +50,5 @@ public class StateMachine : MonoBehaviour
                 currentState = 5;
                 break;
         }
-        /*if (enemyState == EnemyState.patrol)
-        {
-            // do patrol stuff...
-        }
-        else if (enemyState == EnemyState.chase)
-        {
-            // do chase stuff...
-        }
-        else if (enemyState == EnemyState.search)
-        {
-            // do search stuff...
-        }
-        else if (enemyState == EnemyState.attack)
-        {
-            // do attacking stuff...
-        }
-        else if (enemyState == EnemyState.runaway)
-        {
-            // do runaway things
-        }*/
     }
 }
