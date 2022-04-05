@@ -25,7 +25,7 @@ public class EnemyAI : MonoBehaviour
 
     [Header("PatrolPointObjects")]
     private int i = 0;
-    public GameObject pointDest;
+    public GameObject currentPointDest;
     public GameObject[] patrolPoint;
 
     [Header("Scripts")]
@@ -39,7 +39,7 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         stateMachine.GetComponent<StateMachine>();
-        pointDest.transform.position = patrolPoint[0].transform.position;
+        currentPointDest.transform.position = patrolPoint[0].transform.position;
         timerReset = timer;
         patrolSpeed = agent.speed;
         chaseSpeed = agent.speed * 2;
@@ -49,15 +49,15 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         
-        switch (stateMachine.currentState)
+        switch (stateMachine.enemyState)
         {
-            case 1:
+            case StateMachine.EnemyState.patrolling:
                 // patrol 3 points on map
                 enemyBody.GetComponent<MeshRenderer>().material = stateMaterial[(int)stateMachine.enemyState];
-                agent.SetDestination(pointDest.transform.position);                
+                agent.SetDestination(currentPointDest.transform.position);                
                 break;
 
-            case 2:
+            case StateMachine.EnemyState.searching:
                 // lost sight of player
                 //Time until chase stops
                 enemyBody.GetComponent<MeshRenderer>().material = stateMaterial[(int)stateMachine.enemyState];
@@ -65,11 +65,11 @@ public class EnemyAI : MonoBehaviour
                 if (timer > searchTime)
                 {
                     timer = timerReset;
-                    stateMachine.enemyState = StateMachine.EnemyState.retreating;
+                    stateMachine.retreating = true;
                 }
                 break;
 
-            case 3:
+            case StateMachine.EnemyState.chasing:
                 // resets search/attack Timer
                 timer = timerReset;
                 // chases player
@@ -78,7 +78,7 @@ public class EnemyAI : MonoBehaviour
                 agent.speed = chaseSpeed;
                 break;
 
-            case 4:
+            case StateMachine.EnemyState.attacking:
                 // attacks the player
                 enemyBody.GetComponent<MeshRenderer>().material = stateMaterial[(int)stateMachine.enemyState];
                 agent.SetDestination(player.transform.position);
@@ -87,34 +87,37 @@ public class EnemyAI : MonoBehaviour
                 {
                     timer = timerReset;
                     respawn.activated = true;
-                    stateMachine.enemyState = StateMachine.EnemyState.retreating;
+                    stateMachine.retreating = true;
                 }
                 break;
 
-            case 5:
+            case StateMachine.EnemyState.retreating:
                 // retreats from player location
                 enemyBody.GetComponent<MeshRenderer>().material = stateMaterial[(int)stateMachine.enemyState];
-                agent.SetDestination(pointDest.transform.position);               
-                if(agent.transform.position.x == pointDest.transform.position.x)
+                agent.SetDestination(currentPointDest.transform.position);               
+                if(agent.transform.position.x == currentPointDest.transform.position.x)
                 {
                     agent.speed = patrolSpeed;
-                    stateMachine.enemyState = StateMachine.EnemyState.patroling;
+                    stateMachine.patrolling = true;
                 }
                 break;
         }
+        EnemyPatrol();
+    }
 
+    private void EnemyPatrol()
+    {
         // Swap dest to patrol points
         if (agent.transform.position.x == patrolPoint[i].transform.position.x
-                && pointDest.transform.position == patrolPoint[i].transform.position)
+                && currentPointDest.transform.position == patrolPoint[i].transform.position)
         {
             //Swap to next point
             i += 1;
-            if(i == patrolPoint.Length)
+            if (i == patrolPoint.Length)
             {
                 i = 0;
             }
-            pointDest.transform.position = patrolPoint[i].transform.position;
+            currentPointDest.transform.position = patrolPoint[i].transform.position;
         }
-        
     }
 }

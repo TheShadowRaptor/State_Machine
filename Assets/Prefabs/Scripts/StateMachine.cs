@@ -6,8 +6,8 @@ public class StateMachine : MonoBehaviour
 {
     public enum EnemyState
     {
-        patroling,
-        chaseing,
+        patrolling,
+        chasing,
         searching,
         attacking,
         retreating
@@ -15,40 +15,59 @@ public class StateMachine : MonoBehaviour
 
     public EnemyState enemyState;
 
+
     [HideInInspector]
     public int currentState;
+    public bool patrolling;
+    public bool chasing;
+    public bool searching;
+    public bool attacking;
+    public bool retreating;
 
     // Start is called before the first frame update
     void Start()
     {
-        enemyState = EnemyState.patroling;
+        enemyState = EnemyState.patrolling;
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch (enemyState)
+        checkState();
+    }
+
+    private void checkState()
+    {
+        if (patrolling)
         {
-            case EnemyState.patroling:
-                // is patroling
-                currentState = 1;
-                break;
-            case EnemyState.searching:
-                // is searching
-                currentState = 2;
-                break;
-            case EnemyState.chaseing:
-                // is chasing
-                currentState = 3;
-                break;
-            case EnemyState.attacking:
-                // is attacking
-                currentState = 4;
-                break;
-            case EnemyState.retreating:
-                // is retreating
-                currentState = 5;
-                break;
+            enemyState = EnemyState.patrolling;
         }
+
+        if (chasing)
+        {
+            enemyState = EnemyState.chasing;
+        }
+
+        if (searching)
+        {
+            enemyState = EnemyState.searching;
+        }
+
+        if (attacking)
+        {
+            enemyState = EnemyState.attacking;
+        }
+
+        if (retreating)
+        {
+            enemyState = EnemyState.retreating;
+        }
+
+        patrolling = false;
+        chasing = false;
+        searching = false;
+        attacking = false;
+        retreating = false;
+
     }
 }

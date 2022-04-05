@@ -25,7 +25,7 @@ public class Detection : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            stateMachine.enemyState = StateMachine.EnemyState.chaseing;
+            stateMachine.chasing = true;
             detectionObj.transform.localScale = new Vector3(detectionRange + detectionGrowth, detectionRange + detectionGrowth, detectionRange + detectionGrowth);
         }
     }
@@ -34,7 +34,7 @@ public class Detection : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            stateMachine.enemyState = StateMachine.EnemyState.searching;
+            stateMachine.searching = true;
             detectionObj.transform.localScale = new Vector3(detectionRange, detectionRange, detectionRange);
         }
     }

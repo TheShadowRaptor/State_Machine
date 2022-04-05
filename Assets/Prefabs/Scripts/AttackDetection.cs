@@ -12,12 +12,12 @@ public class AttackDetection : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            stateMachine.enemyState = StateMachine.EnemyState.attacking;
+            stateMachine.attacking = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        stateMachine.enemyState = StateMachine.EnemyState.chaseing;
+        stateMachine.chasing = true;
     }
 }
